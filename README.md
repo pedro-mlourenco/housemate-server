@@ -31,7 +31,6 @@ A Node.js backend service managing household inventory, recipes, and shopping da
 ## Tech Stack
 
 - **Runtime**: Node.js
-- **Language**: TypeScript
 - **Framework**: Express.js
 - **Database**: MongoDB
 - **Authentication**: JWT
