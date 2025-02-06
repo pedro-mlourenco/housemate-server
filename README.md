@@ -1,6 +1,6 @@
 # HouseMate Server
 
-A Node.js backend service managing household inventory, recipes, and shopping data with TypeScript, Express, and MongoDB.
+A Node.js backend service managing household inventory, recipes, and shopping data with, Express, and MongoDB.
 
 ## Features
 
