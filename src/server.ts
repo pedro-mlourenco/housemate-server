@@ -1,12 +1,14 @@
 
 import express from "express";
 import cors from "cors";
+import swaggerUi from 'swagger-ui-express';
 import { connectToDatabase } from "./database";
 import { itemRouter } from "./routes/item.routes";
 import { storeRouter } from "./routes/store.routes";
 import { authRouter } from "./routes/auth.routes";
-import swaggerUi from 'swagger-ui-express';
 import { setupSwagger } from './config/swagger';
+import { budgetRouter } from "./routes/budget.routes";
+import { calendarRouter } from "./routes/calendarEvent.routes";
 
 require("dotenv").config();
 
@@ -30,6 +32,8 @@ connectToDatabase(ATLAS_URI)
     app.use("/items", itemRouter);
     app.use("/stores", storeRouter);
     app.use("/auth", authRouter);
+    app.use("/budgets", budgetRouter);
+    app.use("/calendar", calendarRouter);
 
     // start the Express server
     app.listen(5200, () => {

@@ -5,6 +5,7 @@ import { Item,itemSchema } from "./models/item";
 import { Store, storeSchema } from "./models/store";
 import { Recipe, recipeSchema } from "./models/recipe";
 import { CalendarEvent,calendarEventSchema } from "./models/calendarEvent";
+import { Budget, budgetSchema } from "./models/budget";
 
 export const collections: {
   items?: mongodb.Collection<Item>;
@@ -13,6 +14,8 @@ export const collections: {
   tokenBlacklist?: mongodb.Collection<TokenBlacklist>;
   recipes?: mongodb.Collection<Recipe>;
   calendarEvents?: mongodb.Collection<CalendarEvent>;
+  budgets?: mongodb.Collection<Budget>;
+
 } = {};
 
 export async function connectToDatabase(
@@ -31,6 +34,7 @@ export async function connectToDatabase(
     collections.users = db.collection<User>("users");
     collections.tokenBlacklist = db.collection<TokenBlacklist>("tokenBlacklist");
     collections.recipes = db.collection<Recipe>("recipes");
+    collections.budgets = db.collection<Budget>("budgets");
     collections.calendarEvents = db.collection<CalendarEvent>("calendarEvents");
     // Add schema validation
     await Promise.all([
@@ -91,6 +95,15 @@ export async function connectToDatabase(
         .catch(async (error: mongodb.MongoServerError) => {
           if (error.codeName === "NamespaceNotFound") {
             await db.createCollection("calendarEvents", { validator: calendarEventSchema });
+          }
+        }), db
+        .command({
+          collMod: "busdgets",
+          validator: budgetSchema,
+        })
+        .catch(async (error: mongodb.MongoServerError) => {
+          if (error.codeName === "NamespaceNotFound") {
+            await db.createCollection("busdgets", { validator: budgetSchema });
           }
         })
     ]);
