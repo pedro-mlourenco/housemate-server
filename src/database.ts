@@ -108,6 +108,11 @@ export async function connectToDatabase(
         })
     ]);
 
+    // Add this after collection creation
+    await collections.calendarEvents?.createIndex({ date: 1 });
+    await collections.calendarEvents?.createIndex({ owner: 1 });
+    await collections.calendarEvents?.createIndex({ type: 1 });
+
     return client;
   } catch (error) {
     console.error("Database connection error:", error);

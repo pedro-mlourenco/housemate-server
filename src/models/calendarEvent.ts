@@ -8,6 +8,7 @@ export interface CalendarEvent {
     endTime?: string;
     location?: string;
     type: "Birthday" | "Event" | "Task" | "Work" | "Other";
+    owner: mongodb.ObjectId;
 }
 
 export const calendarEventSchema = {
@@ -45,6 +46,10 @@ export const calendarEventSchema = {
                 bsonType: "string",
                 description: "'type' must be on of the following values: 'Birthday', 'Event', 'Task', 'Work', 'Other'",
                 enum: ["Birthday", "Event", "Task", "Work", "Other"],
+            },
+            owner: {
+                bsonType: "objectId",
+                description: "'owner' is required and must be an objectId",
             }
         },
     },
